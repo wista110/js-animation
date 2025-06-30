@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>ロゴ落下アニメーション</title>
+<style>
+  body {
+    min-height: 100vh;
+    background: #222;
+    color: #fff;
+    font-family: sans-serif;
+    text-align: center;
+    padding-top: 50px;
+  }
+  .logo {
+    position: fixed;
+    z-index: 10;
+    opacity: 0.92;
+    pointer-events: none;
+    animation: fall 1.8s cubic-bezier(.24,.85,.52,1.26) forwards;
+  }
+  @keyframes fall {
+    to {
+      transform: translateY(100vh) rotate(360deg) scale(1.2);
+      opacity: 0;
+    }
+  }
+</style>
+</head>
+<body>
+<h2>どこでもクリックしてください！</h2>
+<p>クリックした位置にロゴがランダムに落ちます。</p>
+<script>
+const logos = [
+  "https://raw.githubusercontent.com/github/explore/main/topics/javascript/javascript.png",
+  "https://raw.githubusercontent.com/github/explore/main/topics/python/python.png",
+  "https://raw.githubusercontent.com/github/explore/main/topics/java/java.png",
+  "https://raw.githubusercontent.com/github/explore/main/topics/typescript/typescript.png"
+];
+document.body.addEventListener('click', e => {
+  // h2/pの上はロゴ出さない
+  if (e.target.tagName === 'H2' || e.target.tagName === 'P') return;
+  const img = document.createElement('img');
+  img.src = logos[Math.floor(Math.random() * logos.length)];
+  const size = 40 + Math.random() * 60;
+  img.style.width = size + 'px';
+  img.className = 'logo';
+  img.style.left = (e.clientX - size/2) + 'px';
+  img.style.top = (e.clientY - size/2) + 'px';
+  document.body.appendChild(img);
+  img.addEventListener('animationend', () => {
+    img.remove();
+  });
+});
+</script>
+</body>
+</html>

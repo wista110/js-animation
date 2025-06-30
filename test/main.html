@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>ロゴ落下アニメーション</title>
+<style>
+  .logo {
+    position: fixed;
+    width: 50px;
+    opacity: 0.9;
+    animation: fall 2s ease-in forwards;
+  }
+  @keyframes fall {
+    to {
+      transform: translateY(100vh) rotate(360deg);
+      opacity: 0;
+    }
+  }
+</style>
+</head>
+<body>
+
+<script>
+const logos = [
+  'python-logo.png',
+  'js-logo.png',
+  'java-logo.png',
+  // 必要なロゴ画像を追加
+];
+
+document.body.addEventListener('click', e => {
+  const img = document.createElement('img');
+  img.src = logos[Math.floor(Math.random() * logos.length)];
+  const size = 30 + Math.random() * 70;  // 30〜100px
+  img.style.width = size + 'px';
+  img.className = 'logo';
+  img.style.left = (e.clientX - size/2) + 'px';
+  img.style.top = (e.clientY - size/2) + 'px';
+  document.body.appendChild(img);
+  
+  img.addEventListener('animationend', () => {
+    img.remove();
+  });
+});
+</script>
+
+</body>
+</html>

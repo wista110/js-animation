@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>ロゴ落下アニメーション</title>
+<style>
+  .logo {
+    position: fixed;
+    width: 50px;
+    opacity: 0.9;
+    animation: fall 2s ease-in forwards;
+  }
+  @keyframes fall {
+    to {
+      transform: translateY(100vh) rotate(360deg);
+      opacity: 0;
+    }
+  }
+</style>
+</head>
+<body>
+<script>
+const logos = [
+  "https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png",
+  "https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg",
+  "https://upload.wikimedia.org/wikipedia/ja/9/9a/Java_programming_language_logo.svg"
+];
+document.body.addEventListener('click', e => {
+  const img = document.createElement('img');
+  img.src = logos[Math.floor(Math.random() * logos.length)];
+  const size = 30 + Math.random() * 70;
+  img.style.width = size + 'px';
+  img.className = 'logo';
+  img.style.left = (e.clientX - size/2) + 'px';
+  img.style.top = (e.clientY - size/2) + 'px';
+  document.body.appendChild(img);
+  img.addEventListener('animationend', () => {
+    img.remove();
+  });
+});
+</script>
+</body>
+</html>
