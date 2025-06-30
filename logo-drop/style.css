@@ -1,22 +1,96 @@
 body {
-    min-height: 100vh;
+    min-height: 200vh;
     background: #222;
     color: #fff;
     font-family: sans-serif;
     text-align: center;
     padding-top: 50px;
-  }
-  .logo {
-    position: fixed;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+/* ★ アニメーションエリアのスタイル */
+.animation-area {
+    position: relative;
+    width: 440px;
+    height: calc(100vh - 200px);  /* 上下に余白100pxずつ */
+    margin: 100px auto 100px calc(55% - 220px);  /* 中央よりやや右 */
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px dashed #555;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* エリアのラベル */
+.area-label {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.7);
+    padding: 5px 15px;
+    border-radius: 15px;
+    font-size: 12px;
+    color: #ccc;
+    z-index: 5;
+}
+
+/* アニメーションエリア内の底 */
+.ground {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    background: linear-gradient(to top, #444, #333);
+    border-top: 2px solid #555;
+    z-index: 1;
+}
+
+/* ロゴのスタイル */
+.logo {
+    position: absolute;  /* ★ fixedからabsoluteに変更 */
     z-index: 10;
     opacity: 0.92;
     pointer-events: none;
+}
+
+/* 落下アニメーション */
+.falling {
     animation: fall 1.8s cubic-bezier(.24,.85,.52,1.26) forwards;
-  }
-  @keyframes fall {
-    to {
-      transform: translateY(100vh) rotate(360deg) scale(1.2);
-      opacity: 0;
+}
+
+/* 底に着いた状態 */
+.landed {
+    animation: bounce 0.3s ease-out forwards;
+}
+
+@keyframes fall {
+    0% {
+        left: var(--start-x);
+        top: var(--start-y);
+        transform: rotate(0deg) scale(1);
+        opacity: 1;
     }
-  }
+    100% {
+        left: var(--final-x);
+        top: var(--final-y);
+        transform: rotate(360deg) scale(1);
+        opacity: 0.92;
+    }
+}
+
+@keyframes bounce {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 500px) {
+    .animation-area {
+        width: 90%;
+        margin: 100px auto;
+    }
+}
   
