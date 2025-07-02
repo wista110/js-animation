@@ -1,0 +1,29 @@
+body {
+    min-height: 100vh;
+    background: #222;
+    color: #fff;
+    font-family: sans-serif;
+    text-align: center;
+    padding-top: 50px;
+    position: relative;
+  }
+  .logo {
+    position: fixed;
+    z-index: 10;
+    opacity: 0.92;
+    pointer-events: none;
+    will-change: top, left, transform;
+  }
+  #floor {
+    position: fixed;
+    left: 0;
+    width: 100vw;
+    height: 44px;
+    background: #3ae374;
+    bottom: 0;
+    z-index: 5;
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
+    box-shadow: 0 -2px 12px #111a;
+  }
+  
