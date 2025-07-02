@@ -1,10 +1,9 @@
 body {
-    min-height: 200vh;
+    min-height: 100vh;
     background: #222;
     color: #fff;
     font-family: sans-serif;
     text-align: center;
-    padding-top: 50px;
     margin: 0;
     overflow-x: hidden;
 }
@@ -13,12 +12,21 @@ body {
 .animation-area {
     position: relative;
     width: 440px;
-    height: calc(100vh - 200px);  /* 上下に余白100pxずつ */
-    margin: 100px auto 100px calc(55% - 220px);  /* 中央よりやや右 */
+    height: calc(100vh - 200px);  /* 表示領域の高さは維持 */
+    margin: 100px auto 100px calc(70% - 220px);  /* 中央よりやや右 */
     background: rgba(255, 255, 255, 0.05);
     border: 2px dashed #555;
     border-radius: 10px;
-    overflow: hidden;
+    overflow-y: scroll;  /* ★ 縦スクロールを有効化 */
+    overflow-x: hidden;
+}
+
+/* ★ スクロール可能な内容エリアを追加 */
+.animation-content {
+    position: relative;
+    width: 100%;
+    height: calc((100vh - 200px) * 5);  /* ★ 高さを5倍に */
+    min-height: calc((100vh - 200px) * 5);
 }
 
 /* エリアのラベル */
@@ -49,7 +57,7 @@ body {
 
 /* ロゴのスタイル */
 .logo {
-    position: absolute;  /* ★ fixedからabsoluteに変更 */
+    position: absolute;
     z-index: 10;
     opacity: 0.92;
     pointer-events: none;
@@ -57,12 +65,13 @@ body {
 
 /* 落下アニメーション */
 .falling {
-    animation: fall 1.8s cubic-bezier(.24,.85,.52,1.26) forwards;
+    animation: fall var(--fall-duration) cubic-bezier(.24,.85,.52,1.26) forwards;  /* ★ 動的な時間設定 */
 }
 
 /* 底に着いた状態 */
 .landed {
     animation: bounce 0.3s ease-out forwards;
+    /* ★ 位置は JavaScript で直接設定するため、ここでは transform のみ */
 }
 
 @keyframes fall {
@@ -75,15 +84,21 @@ body {
     100% {
         left: var(--final-x);
         top: var(--final-y);
-        transform: rotate(360deg) scale(1);
+        transform: rotate(var(--final-rotation)) scale(1);
         opacity: 0.92;
     }
 }
 
 @keyframes bounce {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-    100% { transform: scale(1); }
+    0% { 
+        transform: rotate(var(--final-rotation)) scale(1); 
+    }
+    50% { 
+        transform: rotate(var(--final-rotation)) scale(1.1); 
+    }
+    100% { 
+        transform: rotate(var(--final-rotation)) scale(1);
+    }
 }
 
 /* レスポンシブ対応 */
