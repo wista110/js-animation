@@ -9,7 +9,7 @@ html, body {
     position: fixed;
     inset: 0;
     z-index: 0;
-    background: url('https://raw.githubusercontent.com/wista-dev/wista-assets/main/wave-bg.svg') center/cover no-repeat;
+    background: url(public/bg-fun.png) center/cover no-repeat;
     width: 100vw; height: 100vh;
   }
   .container {
@@ -64,9 +64,9 @@ html, body {
   .mobile-frame {
     background: #0fd3ef;
     border-radius: 38px;
-    width: 370px;
-    min-height: 720px;
-    max-height: 720px;
+    width: 440px;
+    min-height: 940px;
+    max-height: 940px;
     box-shadow: 8px 8px 0 #6defff, 0 0 0 #3334;
     position: relative;
     padding: 10px 0 0 0;
